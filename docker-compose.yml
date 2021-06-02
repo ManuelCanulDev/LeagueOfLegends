@@ -1,0 +1,30 @@
+version: "3"
+ 
+services:
+  servicio_db:
+    image: mariadb/server:10.4
+    restart: always
+
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=dbmanutest
+      - MYSQL_USER=manu109
+      - MYSQL_PASSWORD=secreto
+      - MYSQL_ROOT_PASSWORD=s3cr3t0
+    ports:
+      - 3306:3306
+    volumes:
+      # Montamos un volumen para MySQL para no perder los datos de bd
+      - "./dbfiles:/var/lib/mysql"
+      - "./dbconfig:/etc/mysql/conf.d"
+   
+  servicio_app:
+    image: webdevops/php-apache
+    volumes:
+      # Montamos nuestra web desde fuera en el directorio web del contenedor
+      - ./app:/app
+    ports:
+      - "80:80"
+    links: 
+      - servicio_db
