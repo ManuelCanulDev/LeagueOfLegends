@@ -130,8 +130,10 @@
                         processData: false,
                         success: function (data) {
                             if(data['message'] == 'OK'){
-                                alert('Champion Agregado');
-                                location.reload();
+                                alert('Champion "'+data['data']['name']+'" Agregad@');
+                                var id = data['data']['id'];
+
+                                window.location.href = "<?php echo base_url('add-hability'); ?>/" + id;
                             }
                         }
                     });

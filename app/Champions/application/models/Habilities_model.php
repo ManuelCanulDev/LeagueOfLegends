@@ -12,7 +12,7 @@ class Habilities_model extends CI_Model
     public function get_all_habilities($params = array())
     {
         try {
-            $this->db->order_by('id', 'asc');
+            $this->db->order_by('id', 'desc');
             if (isset($params) && !empty($params)) {
                 $this->db->limit($params['limit'], $params['offset']);
             }
@@ -27,7 +27,34 @@ class Habilities_model extends CI_Model
         try {
             return $this->db->get_where('champion_habilities', array('champion' => $id_champion))->result_array();
         } catch (Exception $ex) {
-            throw new Exception('Champions_model Model : Error in get_habilities_by_champion function - ' . $ex);
+            throw new Exception('Habilities_model Model : Error in get_habilities_by_champion function - ' . $ex);
+        }
+    }
+
+    public function get_last_id($id_champion)
+    {
+        $query2 = $this->db->query('SELECT MAX(id) as ultimo_id FROM champion_habilities WHERE champion = '.$id_champion);
+
+        $row = $query2->row();
+        return $row->ultimo_id;
+    }
+
+    public function add_hability($params)
+    {
+        try {
+            $this->db->insert('champion_habilities', $params);
+            return $this->db->insert_id();
+        } catch (Exception $ex) {
+            throw new Exception('Habilities_model model : Error in add_hability function - ' . $ex);
+        }
+    }
+
+    public function get_hability($id_hability,$id_champion)
+    {
+        try {
+            return $this->db->get_where('champion_habilities', array('id' => $id_hability, 'champion' => $id_champion))->row_array();
+        } catch (Exception $ex) {
+            throw new Exception('Habilities_model Model : Error in get_hability function - ' . $ex);
         }
     }
 }

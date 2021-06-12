@@ -48,4 +48,52 @@ class Welcome extends CI_Controller
             redirect('/');
         }
     }
+
+    public function agregarHabilidad($id_champion = null)
+    {
+        if ($id_champion != null) {
+            $data['champion'] = $this->Champions_model->get_champion($id_champion);
+
+            if (isset($data['champion']['id'])) {
+                $data['id_champion'] = $id_champion;
+                $this->load->view('add_hability_champion', $data);
+            } else {
+                redirect('/');
+            }
+        } else {
+            redirect('/');
+        }
+    }
+
+    public function agregarEstadistica($id_champion = null)
+    {
+        if ($id_champion != null) {
+            $data['champion'] = $this->Champions_model->get_champion($id_champion);
+
+            if (isset($data['champion']['id'])) {
+                $data['id_champion'] = $id_champion;
+                $this->load->view('add_stats_champion', $data);
+            } else {
+                redirect('/');
+            }
+        } else {
+            redirect('/');
+        }
+    }
+
+    public function agregarTip($id_champion = null)
+    {
+        if ($id_champion != null) {
+            $data['champion'] = $this->Champions_model->get_champion($id_champion);
+
+            if (isset($data['champion']['id'])) {
+                $data['id_champion'] = $id_champion;
+                $this->load->view('add_tips_champion', $data);
+            } else {
+                redirect('/');
+            }
+        } else {
+            redirect('/');
+        }
+    }
 }
