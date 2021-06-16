@@ -20,9 +20,9 @@
 
 ## Requerimientos
 
-☢ Docker Desktop <a href='(https://docs.docker.com/docker-for-windows/install/' target='_black'> Descarga Aquí </a>
+☢ Docker Desktop <a href='https://docs.docker.com/docker-for-windows/install/' target='_black'> Descarga Aquí </a>
 
-⚡ Docker Compose <a href='(https://docs.docker.com/docker-for-windows/install/' target='_black'> Descarga Aquí </a>
+⚡ Docker Compose <a href='https://docs.docker.com/docker-for-windows/install/' target='_black'> Descarga Aquí </a>
 
 <br/>
 
@@ -77,7 +77,7 @@ En este proyecto tomamos el rol de dos devs distintos, los desarrolladores de Fr
 
 ## ✨ Aprendiendo a usar el `ChampionsAPI`
 
-`radioactive-state` gives you a hook `useRS` (use radioactive state) which lets you create a radioactive state in your React Components.
+`Parte: Backend` para visualizar la parte `Frontend` solo ve a la URL: <a href='http://localhost/Champions' target="_blank" title='counter app'> AQUI </a> 
 
 ### BASE_URL: http://localhost/Champions/api/v#
 
