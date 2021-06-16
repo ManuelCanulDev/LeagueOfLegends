@@ -84,19 +84,6 @@
 							<input type="text" name="tags" id="tags" class="form-control" placeholder="Tags">
 						</div>
 						<br>
-						<div id="imgChampion"></div>
-						<div class="form-group">
-							<label for="image">Image</label>
-							<input type="file" name="image" id="image" class="form-control"
-								onchange="ValidateJPG(this);">
-						</div>
-						<br>
-						<div id="iconChampion"></div>
-						<div class="form-group">
-							<label for="icon">Icon</label>
-							<input type="file" name="icon" id="icon" class="form-control" onchange="ValidateJPG(this);">
-						</div>
-						<br>
 						<div class="form-group text-center">
 							<button name="enviarChamp" class="btn btn-success" id="btn_upload"
 								type="submit">Editar</button>
@@ -212,6 +199,35 @@
 				});
 
 			});
+
+			// actualizar habilidad
+			$(".editarHabilitie").focusout(function () {
+				var id = this.id;
+				var split_id = id.split("_");
+				var field_name = split_id[0];
+				var edit_id = split_id[1];
+				var id_champion = split_id[2];
+				var value = $(this).text();
+
+				$.ajax({
+					url: '<?php echo base_url(); ?>api/v1/habilities/update',
+					type: 'post',
+					data: {
+						field: field_name,
+						value: value,
+						id: edit_id,
+						champion: id_champion
+					},
+					success: function (response) {
+						if (response['message'] == 'OK') {
+							console.log('ACTUALIZADO HAB.');
+						} else {
+							console.log("NO ACTUALIZADO.");
+						}
+					}
+				});
+
+			});
 		});
 
 		var _validFileExtensions = [".jpg"];
@@ -246,8 +262,7 @@
 			async: false,
 			dataType: 'json',
 			success: function (data) {
-				$('#imgChampion').append($('<img class="img-responsive" width="70" />').attr('src', data.data[0]
-					.image));
+				//$('#imgChampion').append($('<img class="img-responsive" width="70" />').attr('src', data.data[0].image));
 
 				document.getElementById("name").value = data.data[0].name;
 
@@ -257,16 +272,30 @@
 
 				document.getElementById("tags").value = data.data[0].tags;
 
-				$('#iconChampion').append($('<img class="img-responsive" width="70" />').attr('src', data.data[0].icon));
+				//$('#iconChampion').append($('<img class="img-responsive" width="70" />').attr('src', data.data[0].icon));
 
 				html = '';
 
 				html += '<p class="mb-4">';
+				html += '<table class="table table-striped">';
+				html += '<thead>';
+				html += '<tr>';
+				html += '<th scope="col">ID</th>';
+				html += '<th scope="col">Image</th>';
+				html += '<th scope="col">Description</th>';
+				html += '</tr>';
+				html += '</thead>';
+				html += '<tbody>';
 				var v;
 				for (v = 0; v < data.data[0].habilities.length; v++) {
-					html +=
-						'<img data-placement="top" data-toggle="tooltip" class="img-fluid rounded m-1 jiji" src="<?php echo base_url('resources/'); ?>' + data.data[0].habilities[v].image + '" alt="' + data.data[0].habilities[v].name + '" title="' + data.data[0].habilities[v].name + '"/>';
+					html += '<tr>';
+					html += '<td scope="col">' + data.data[0].habilities[v].id + '</td>';
+					html +='<td scope="col"><img data-placement="top" data-toggle="tooltip" class="img-fluid rounded m-1 jiji" src="<?php echo base_url('resources/'); ?>' + data.data[0].habilities[v].image + '" alt="' + data.data[0].habilities[v].name + '" title="' + data.data[0].habilities[v].name + '"/></td>';
+					html += '<td scope="col"><div contentEditable="true" class="editarHabilitie" id="name_' + data.data[0].habilities[v].id+'_'+data.data[0].id+'">' + data.data[0].habilities[v].name + '</div></td>';
+					html += '</tr>';
 				}
+				html += '</tbody>';
+				html += '</table>';
 				html += '</p>';
 
 				$('#habilitiesChampion').html(html);
@@ -282,7 +311,7 @@
 				html += '</tr>';
 				html += '</thead>';
 				html += '<tbody>';
-				html += '<tr>';
+				
 				var b;
 				for (a = 0; a < data.data[0].stats.length; a++) {
 					html += '<tr>';
@@ -292,7 +321,7 @@
 					html += '<td scope="col"><div contentEditable="true" class="editarStat" id="modifier_' + data.data[0].stats[a].id +'">' + data.data[0].stats[a].modifier_per_level + '</div></td>';
 					html += '</tr>';
 				}
-				html += '</tr>';
+				
 				html += '</tbody>';
 				html += '</table>';
 				html += '</p>';

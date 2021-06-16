@@ -87,4 +87,41 @@ class habilities extends REST_Controller
             }
         }
     }
+
+    public function update_post()
+    {
+        if (isset($_POST['field']) && isset($_POST['value']) && isset($_POST['id']) && isset($_POST['champion'])) {
+
+            $newHab = array(
+                $_POST['field'] => $_POST['value'],
+            );
+
+            if ($this->Habilities_model->update_hability($newHab, $_POST['id'],$_POST['champion'])) {
+
+                $habili = $this->Habilities_model->get_hability($_POST['id'],$_POST['champion']);
+
+                $this->response([
+                    'status' => true,
+                    'error' => false,
+                    'message' => "OK",
+                    'system_code' => $this->code01,
+                    'data' => $habili,
+                ], 200);
+            } else {
+                $this->response([
+                    'status' => false,
+                    'error' => true,
+                    'message' => 'ERROR: ' . $this->code04,
+                    'system_code' => $this->code04,
+                ], 400);
+            }
+        } else {
+            $this->response([
+                'status' => false,
+                'error' => true,
+                'message' => 'ERROR',
+                'system_code' => $this->code03,
+            ], 400);
+        }
+    }
 }

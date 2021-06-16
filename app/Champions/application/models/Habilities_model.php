@@ -57,6 +57,17 @@ class Habilities_model extends CI_Model
             throw new Exception('Habilities_model Model : Error in get_hability function - ' . $ex);
         }
     }
+
+    public function update_hability($params, $id_hability, $id_champion)
+    {
+        try {
+            $this->db->where('id', $id_hability);
+            $this->db->where('champion', $id_champion);
+            return $this->db->update('champion_habilities', $params);
+        } catch (Exception $ex) {
+            throw new Exception('Habilities_model model : Error in update_hability function - ' . $ex);
+        }
+    }
 }
 
 /* End of file Habilities.php */
