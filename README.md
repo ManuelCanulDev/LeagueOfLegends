@@ -57,7 +57,7 @@ docker-compose up -d
 ```
 <br/>
 
-
+<h1>Apartir de esta etapa, solo funcionará si Docker y el contenedor esta ejecutando en el sistema.</h1>
 
 ## ☢️ Como funciona ?
 
