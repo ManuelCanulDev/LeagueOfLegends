@@ -150,6 +150,7 @@ class champions extends REST_Controller
             if ($statss['champion'] == $champion['id']) {
 
                 array_push($stats_new, array(
+                    'id' => $statss['id'],
                     'name' => $statss['name'],
                     'value' => $statss['value'],
                     'modifier_per_level' => $statss['modifier_per_level'],
@@ -349,13 +350,13 @@ class champions extends REST_Controller
 
     public function update_post()
     {
-        $id_champ = $this->post('id_champ');
+        $id_champion = $this->post('id_champion');
         $name = $this->post('name');
-        $champ_key = $this->post('champ_key');
         $title = $this->post('title');
-        $description = $this->post('description');
+        $lore = $this->post('lore');
+        $tags = $this->post('tags');
 
-        if ($name == '' || $champ_key == '' || $title == '' || $description == '' || $id_champ == '') {
+        if ($name == '' || $title == '' || $lore == '' || $tags == '' || $id_champion == '') {
             $this->response([
                 'status' => false,
                 'error' => true,
@@ -363,19 +364,19 @@ class champions extends REST_Controller
             ], 400);
         } else {
 
-            $champion = $this->Champions_model->get_champion($id_champ);
+            $champion = $this->Champions_model->get_champion($id_champion);
 
             if (isset($champion['id'])) {
                 $params = array(
                     'name' => $name,
-                    'champ_key' => $champ_key,
                     'title' => $title,
-                    'description' => $description,
+                    'lore' => $lore,
+                    'tags' => $tags
                 );
 
-                if ($this->Champions_model->update_champion($params, $id_champ)) {
+                if ($this->Champions_model->update_champion($params, $id_champion)) {
 
-                    $championNew = $this->Champions_model->get_champion($id_champ);
+                    $championNew = $this->Champions_model->get_champion($id_champion);
 
                     $this->response([
                         'status' => true,
@@ -410,5 +411,4 @@ class champions extends REST_Controller
             'requireAuthorization' => true,
         ]);
     }
-
 }

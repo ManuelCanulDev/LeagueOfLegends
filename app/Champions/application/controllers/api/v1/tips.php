@@ -68,4 +68,41 @@ class tips extends REST_Controller
             }
         }
     }
+
+    public function update_post()
+    {
+        if(isset($_POST['field']) && isset($_POST['value']) && isset($_POST['id'])){
+
+            $newTip = array(
+                'tip' => $_POST['value'],
+            );
+         
+            if($this->Tips_model->update_tip($newTip, $_POST['id'])){
+
+                $get_tip = $this->Tips_model->get_tip($_POST['id']);
+
+                $this->response([
+                    'status' => true,
+                    'error' => false,
+                    'message' => "OK",
+                    'system_code' => $this->code01,
+                    'data' => $get_tip,
+                ], 200);
+            }else{
+                $this->response([
+                    'status' => false,
+                    'error' => true,
+                    'message' => 'ERROR: ' . $this->code04,
+                    'system_code' => $this->code04,
+                ], 400);
+            }
+         }else{
+            $this->response([
+                'status' => false,
+                'error' => true,
+                'message' => 'ERROR',
+                'system_code' => $this->code03,
+            ], 400);
+         }
+    }
 }

@@ -41,8 +41,9 @@ class stats extends REST_Controller
                 'system_code' => $this->code03,
             ], 400);
         } else {
-           
+
             $stat = array(
+                'id' => null,
                 'champion' => $id_champion,
                 'name' => $name,
                 'value' => $value,
@@ -69,6 +70,43 @@ class stats extends REST_Controller
                     'system_code' => $this->code04,
                 ], 400);
             }
+        }
+    }
+
+    public function update_post()
+    {
+        if (isset($_POST['field']) && isset($_POST['value']) && isset($_POST['id'])) {
+
+            $newStat = array(
+                $_POST['field'] => $_POST['value'],
+            );
+
+            if ($this->Stats_model->update_stat($newStat, $_POST['id'])) {
+
+                $get_stat = $this->Stats_model->get_stat_by_id($_POST['id']);
+
+                $this->response([
+                    'status' => true,
+                    'error' => false,
+                    'message' => "OK",
+                    'system_code' => $this->code01,
+                    'data' => $get_stat,
+                ], 200);
+            } else {
+                $this->response([
+                    'status' => false,
+                    'error' => true,
+                    'message' => 'ERROR: ' . $this->code04,
+                    'system_code' => $this->code04,
+                ], 400);
+            }
+        } else {
+            $this->response([
+                'status' => false,
+                'error' => true,
+                'message' => 'ERROR',
+                'system_code' => $this->code03,
+            ], 400);
         }
     }
 }

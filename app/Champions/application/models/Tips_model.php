@@ -38,7 +38,17 @@ class Tips_model extends CI_Model
         try {
             return $this->db->get_where('champion_tips', array('id' => $id_tip))->row_array();
         } catch (Exception $ex) {
-            throw new Exception('Habilities_model Model : Error in get_hability function - ' . $ex);
+            throw new Exception('Tips_model Model : Error in get_tip function - ' . $ex);
+        }
+    }
+
+    public function update_tip($params, $id_champion)
+    {
+        try {
+            $this->db->where('id', $id_champion);
+            return $this->db->update('champion_tips', $params);
+        } catch (Exception $ex) {
+            throw new Exception('Tips_model model : Error in update_tip function - ' . $ex);
         }
     }
 }

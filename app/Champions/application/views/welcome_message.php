@@ -201,8 +201,7 @@
 					html += '</table>';
 					html += '</p>';
 					html +=
-						'<button class="btn btn-warning" href="#!" data-bs-dismiss="modal"> <i class="fas fa-pen fa-fw"></i></button> <a id="championDelete' + data.data[i].id + '" class="btn btn-danger" href="#" role="button"><i class="fas fa-trash fa-fw"></i></a> <a class="btn btn-info" href="<?php echo base_url('view-champion'); ?>/' + data.data[i].id +
-						'" role="button"><i class="fas fa-eye fa-fw"></i></a>';
+						'<a class="btn btn-warning" href="<?php echo base_url('edit-champion'); ?>/' + data.data[i].id +'" role="button"><i class="fas fa-pen fa-fw"></i></a> <a id="championDelete' + data.data[i].id + '" class="btn btn-danger" href="#" role="button"><i class="fas fa-trash fa-fw"></i></a> <a class="btn btn-info" href="<?php echo base_url('view-champion'); ?>/' + data.data[i].id +'" role="button"><i class="fas fa-eye fa-fw"></i></a>';
 					html += '</div></div></div></div></div></div></div>';
 				}
 

@@ -140,6 +140,7 @@
                 }
             });
         });
+        
         var _validFileExtensions = [".jpg"];
 
         function ValidateJPG(oInput) {
